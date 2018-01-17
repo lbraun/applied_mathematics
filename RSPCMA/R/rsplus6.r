@@ -31,12 +31,12 @@ n<-length(pottery.dat[,1])
 wss1<-(n-1)*sum(apply(pottery.dat,2,var))
 wss<-numeric(0)
 for(i in 2:6) {
-	   W<-sum(kmeans(pottery.dat,i)$withinss)
-	   wss<-c(wss,W)
+    W<-sum(kmeans(pottery.dat,i)$withinss)
+    wss<-c(wss,W)
 }
 #
 wss<-c(wss1,wss)
-plot(1:6,wss,type="l",xlab="Number of groups",ylab="Within groups sum of squares",lwd=2)
+plot(2:6,wss,type="l",xlab="Number of groups",ylab="Within groups sum of squares",lwd=2)
 #
 pottery.kmean<-kmeans(pottery.dat,3)
 pottery.kmean

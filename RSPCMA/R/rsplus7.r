@@ -1,4 +1,4 @@
-Tibet<-source("c:\\allwork\\rsplus\\chap7tibetskull.dat")$value
+Tibet<-source(paste(getwd(), "/Data/chap7tibetskull.dat", sep = ""))$value
 #
 attach(Tibet)
 #
@@ -42,7 +42,7 @@ dis<-lda(Type~Length+Breadth+Height+Fheight+Fbreadth,data=Tibet,prior=c(0.5,0.5)
 #
 #
 newdata<-rbind(c(171,140.5,127.0,69.5,137.0),c(179.0,132.0,140.0,72.0,138.5))
-colnames(newdata)<-colnames(Tibet)
+colnames(newdata)<-colnames(Tibet[,-6])
 #
 newdata<-data.frame(newdata)
 predict(dis,newdata=newdata)
@@ -74,10 +74,3 @@ m1<-c(mean(dsfs1[1:30]),mean(dsfs1[31:60]),mean(dsfs1[61:90]),mean(dsfs1[91:120]
 m2<-c(mean(dsfs2[1:30]),mean(dsfs2[31:60]),mean(dsfs2[61:90]),mean(dsfs2[91:120]),mean(dsfs2[121:150]))
 plot(m1,m2,type="n",xlab="CV1",ylab="CV2",xlim=c(0.5,3))
 text(m1,m2,labels=c("c4000BC","c3300BC","c1850BC","c200BC","cAD150"))
-   
-
-
-
-
-
-

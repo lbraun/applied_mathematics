@@ -53,8 +53,14 @@
 - `dist(life)` gives distances
 - `cutree` cuts the dendrogram at given value "h"
 - `lapply` can show cluster memberships or cluster mean values
- - "‘lapply’ returns a list of the same length as ‘X’, each element of which is the result of applying ‘FUN’ to the corresponding element of ‘X’."
--
+  - "‘lapply’ returns a list of the same length as ‘X’, each element of which is the result of applying ‘FUN’ to the corresponding element of ‘X’."
+
+#### Tibet data
+- `lda` = linear discriminate analysis
+  - Prior means probability that an individual will belong to a certain group-- when you have no idea, just use 0.5
+  - When we use this function, the "LDs" are the coefficients from the Fisher's LD function we were talking about earlier
+- `predict` gives probabilities of which group new individuals belong to
+  - Should be at least a 30 percent difference between the probabilities for the result to be considered significant
 
 
 ## December 21, 2017
