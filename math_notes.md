@@ -93,7 +93,7 @@
 #### Example
 - Follow rsplus3.r
 - Use `princomp` method to perform PCA
-- Look at the summary to see which components can me ignored (after the third the "cumulative proportion" is higher than 70 percent)
+- Look at the summary to see which components can be ignored (after the third the "cumulative proportion" is higher than 70 percent)
 - `⊥` signifies independence
 
 

@@ -1,0 +1,28 @@
+Name,Energy,Protein,Fat,Calcium,Iron
+"BB Beef, braised",340,20,28,9,2.6
+"HR Hamburger",245,21,17,9,2.7
+"BR Beef roast",420,15,39,7,2.0
+"BS Beef, steak",375,19,32,9,2.5
+"BC Beef, canned",180,22,10,17,3.7
+"CB Chicken, broiled",115,20,3,8,1.4
+"CC Chicken, canned",170,25,7,12,1.5
+"BH Beef, heart",160,26,5,14,5.9
+"LL Lamb leg, roast",265,20,20,9,2.6
+"LS Lamb shoulder, roast",300,18,25,9,2.3
+"HS Smoked ham",340,20,28,9,2.5
+"PR Pork roast",340,19,29,9,2.5
+"PS Pork simmered",355,19,30,9,2.4
+"BT Beef tongue",205,18,14,7,2.5
+"VC Veal cutlet",185,23,9,9,2.7
+"FB Bluefish, baked",135,22,4,25,0.6
+"AR Clams, raw",70,11,1,82,6.0
+"AC Clams, canned",45,7,1,74,5.4
+"TC Crabmeat, canned",90,14,2,38,0.8
+"HF Haddock, fried",135,16,5,15,0.5
+"MB Mackerel, broiled",200,19,13,5,1.0
+"MC Mackerel, canned",155,16,9,157,1.8
+"PF Perch, fried",195,16,11,14,1.3
+"SC Salmon, canned",120,17,5,159,0.7
+"DC Sardines, canned",180,22,9,367,2.5
+"UC Tuna, canned",170,25,7,7,1.2
+"RC Shrimp, canned",110,23,1,98,2.6
