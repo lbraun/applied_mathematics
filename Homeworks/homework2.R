@@ -115,22 +115,23 @@ summary(tibet.princomp, loadings = TRUE)
 wss <- (nrow(tibet.data) - 1) * sum(apply(tibet.data, 2, var))
 
 # Determine maximum number of clusters we will want
-sqrt(nrow(life.data)) # => 5.6
+sqrt(nrow(tibet.data)) # => 5.7
 
 # Calculate the within-group sum of squares for clustering factors 2 through 6
-for (i in 2:6) wss[i] <- sum(kmeans(life.data, centers=i)$withinss)
+for (i in 2:6) wss[i] <- sum(kmeans(tibet.data, centers = i)$withinss)
 plot(1:6, wss, type="b", xlab="Number of Clusters", ylab="Within groups sum of squares")
 
 # K-Means Cluster Analysis
-fit <- kmeans(life.data, 4) # The graph indicates 4 is the right number of clusters
+fit <- kmeans(tibet.data, 3) # The graph indicates 3 is the right number of clusters
 # Get cluster means
-aggregate(life.data,by=list(fit$cluster),FUN=mean)
-# Append cluster assignment
-life.kmeans <- data.frame(life.data, fit$cluster)
+aggregate(tibet.data, by = list(fit$cluster), FUN = mean)
+# Append cluster assignment to original data with type assignments
+tibet.kmeans <- data.frame(tibet.data_with_clusters, fit$cluster)
 
 # Cluster Plot against 1st 2 principal components
 library(cluster)
-clusplot(life.data, fit$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
+clusplot(tibet.data, fit$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
+clusplot(tibet.data, tibet.data_with_clusters[,6], color=TRUE, shade=TRUE, labels=2, lines=0)
 
 
 
