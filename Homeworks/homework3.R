@@ -40,17 +40,39 @@ PlotFourWays <- function(data, x.label, y.label) {
   dev.off()
 }
 
-SimplePlot <- function(title, x, y, x.label, y.label) {
+SimplePlot <- function(data, x.label, y.label) {
   plot(x, y, xlab=x.label, ylab=y.label, pch=1, lwd=2)
   title(title, lwd=2)
 }
 
+CombinedPlot <- function(data, x.label, y.label, labels=NULL) {
+  x <- do.call("$", list(data, x.label))
+  y <- do.call("$", list(data, y.label))
+  title <- paste(x.label, 'vs.', y.label)
+
+  if (is.null(labels)) {
+    plot(x, y, xlab=x.label, ylab=y.label, pch=1, lwd=2)
+  } else {
+    plot(x, y, xlab=x.label, ylab=y.label, lwd=2, type="n")
+    text(x, y, labels=labels, lwd=2)
+  }
+
+  title(title, lwd=2)
+  abline(lm(y~x),lwd=2)
+  rug(jitter(x), side=1)
+  rug(jitter(y), side=2)
+
+  file.name <- paste(x.label, '_vs_', y.label, '.png', sep="")
+  dev.copy(png, file.name)
+  dev.off()
+}
+
 names <- names(sids)
 
-for (x.variable in names) {
-  for (y.variable in names) {
-    if (x.variable != y.variable) {
-      PlotFourWays(sids, x.variable, y.variable)
+for (i in names) {
+  for (j in names) {
+    if (i != j && i != "Group" && j != "Group") {
+      CombinedPlot(sids, i, j, labels = sids$Group)
     }
   }
 }
