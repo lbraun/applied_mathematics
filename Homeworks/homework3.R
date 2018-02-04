@@ -157,8 +157,7 @@ Gesage    0.490 -0.363         0.717  0.334
 
 # 3. Find homogeneous clusters amongst the individuals without
 # considering the variable Group (use hierarchical and k-means methods
-# under two distinct choices of distance methods). Compare the results
-# with the existing groups given by variable "group".
+# under two distinct choices of distance methods).
 sids.no.groups <- sids[,-1]
 
 # Determine maximum number of clusters we will want
@@ -174,8 +173,10 @@ title("WSS vs. Number of Clusters", lwd=2)
 dev.copy(png, "wss_vs_clusters.png")
 dev.off()
 
+n <- 4  # The graph indicates i is the right number of clusters
+
 # K-Means Cluster Analysis
-fit <- kmeans(sids.no.groups, 3) # The graph indicates 4 is the right number of clusters
+fit <- kmeans(sids.no.groups, n)
 # Get cluster means
 aggregate(sids.no.groups, by=list(fit$cluster), FUN=mean)
 # Append cluster assignment
@@ -184,19 +185,44 @@ sids.kmeans <- data.frame(sids.no.groups, fit$cluster)
 # Cluster Plot against 1st 2 principal components
 library(cluster)
 clusplot(sids.no.groups, fit$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
+dev.copy(png, paste(n, "_clusters_graphed.png", sep=""))
+dev.off()
+
+# Compare the results with the existing groups given by variable "group".
+sids.cluster.comparison <- data.frame(sids[,1], fit$cluster)
+plot(sids.cluster.comparison)
+counts <- table(sids.cluster.comparison[,1], sids.cluster.comparison[,2])
+barplot(counts,
+  ylim = c(0,30),
+  main = "Individuals per New Group",
+  xlab = "New Group Assignment",
+  col = c("darkblue", "red"),
+  legend = c("Original group: 1", "Original group: 2"))
+
+# Then perform LDA and classify into these groups the following two new
+# observations:
+# Obs1: (110,3320,0.240,39); Obs2: (120,3310,0.298,37).
+library(MASS)
+attach(sids.kmeans)
+dis <- lda(fit$cluster ~ HR + BW + Factor68 + Gesage, data = sids.no.groups)
 
 
-# # Then perform LDA and classify into these groups the following two new
-# # observations:
-# # Obs1: (110,3320,0.240,39); Obs2: (120,3310,0.298,37).
-# library(MASS)
-# attach(sids.kmeans)
-# dis<-lda(fit.cluster ~ diff0 + diff25 + diff50 + diff75, data = sids.no.groups)
+new.data <- rbind(c(110,3320,0.240,39), c(120,3310,0.298,37))
+colnames(new.data) <- names(sids.no.groups)
+new.data <- data.frame(new.data)
+predict(dis, newdata=new.data)
 
+## => RESULT =>
+$class
+[1] 4 4
+Levels: 1 2 3 4
 
-# newdata<-rbind(c(65,50,33,15,69,57,37,16),c(59,46,31,15,64,56,33,16))
-# newdata<-newdata[,5:8] - newdata[,0:4]
-# colnames(newdata)<-colnames(sids.no.groups[,-5])
+$posterior
+             1            2          3         4
+1 1.814928e-10 1.507680e-04 0.08807707 0.9117722
+2 1.080481e-09 7.764754e-05 0.17538302 0.8245393
 
-# newdata<-data.frame(newdata)
-# predict(dis,newdata=newdata)
+$x
+          LD1      LD2        LD3
+1 -0.06209386 1.732598 0.29801618
+2 -0.30762429 1.509655 0.01662206
