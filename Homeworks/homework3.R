@@ -36,7 +36,7 @@ names <- names(sids)
 
 for (i in names) {
   for (j in names) {
-    if (i != j && i != "Group" && j != "Group") {
+    if (i != j) {
       CombinedPlot(sids, i, j, labels = sids$Group)
     }
   }
@@ -102,7 +102,6 @@ names <- names(sids)
 
 for (i in names) {
   for (j in names) {
-    # if (i != j && i != "Group" && j != "Group") {
     if (i != j) {
       # ChiplotThis(sids, i, j)
       BoxplotThis(sids, i, j)
@@ -197,7 +196,9 @@ barplot(counts,
   main = "Individuals per New Group",
   xlab = "New Group Assignment",
   col = c("darkblue", "red"),
-  legend = c("Original group: 1", "Original group: 2"))
+  legend = c("Originally in group 1", "Originally in group 2"))
+dev.copy(png, "groupings_comparison.png")
+dev.off()
 
 # Then perform LDA and classify into these groups the following two new
 # observations:
